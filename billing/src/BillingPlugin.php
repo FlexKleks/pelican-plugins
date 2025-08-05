@@ -2,6 +2,7 @@
 
 namespace Boy132\Billing;
 
+use App\Contracts\Plugins\HasPluginSettings;
 use App\Traits\EnvironmentWriterTrait;
 use Filament\Contracts\Plugin;
 use Filament\Forms\Components\Select;
@@ -9,7 +10,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Panel;
 
-class BillingPlugin implements Plugin
+class BillingPlugin implements HasPluginSettings, Plugin
 {
     use EnvironmentWriterTrait;
 

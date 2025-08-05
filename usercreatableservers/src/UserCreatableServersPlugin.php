@@ -2,6 +2,7 @@
 
 namespace Boy132\UserCreatableServers;
 
+use App\Contracts\Plugins\HasPluginSettings;
 use App\Traits\EnvironmentWriterTrait;
 use Filament\Contracts\Plugin;
 use Filament\Forms\Components\TextInput;
@@ -9,7 +10,7 @@ use Filament\Forms\Components\Toggle;
 use Filament\Notifications\Notification;
 use Filament\Panel;
 
-class UserCreatableServersPlugin implements Plugin
+class UserCreatableServersPlugin implements HasPluginSettings, Plugin
 {
     use EnvironmentWriterTrait;
 

@@ -128,7 +128,7 @@ class ServerResourcePage extends ServerFormPage
         try {
             /** @var DaemonServerRepository $repository */
             $repository = app(DaemonServerRepository::class); // @phpstan-ignore-line
-            
+
             $repository->setServer($server)->sync();
 
             Notification::make()
