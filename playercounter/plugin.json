@@ -1,9 +1,4 @@
 {
-    "meta": {
-        "status": "enabled",
-        "status_message": null,
-        "load_order": 0
-    },
     "id": "playercounter",
     "name": "Player Counter",
     "author": "Boy132",
