@@ -1,6 +1,6 @@
 <?php
 
-namespace Boy132\Billing\Filament\Shop\Widgets;
+namespace Boy132\Billing\Filament\App\Widgets;
 
 use Boy132\Billing\Models\Customer;
 use Boy132\Billing\Models\Order;

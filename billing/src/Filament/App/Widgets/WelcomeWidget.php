@@ -1,6 +1,6 @@
 <?php
 
-namespace Boy132\Billing\Filament\Shop\Widgets;
+namespace Boy132\Billing\Filament\App\Widgets;
 
 use Filament\Widgets\AccountWidget;
 

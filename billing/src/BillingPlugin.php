@@ -3,6 +3,8 @@
 namespace Boy132\Billing;
 
 use App\Contracts\Plugins\HasPluginSettings;
+use App\Enums\CustomizationKey;
+use App\Filament\App\Resources\Servers\ServerResource;
 use App\Traits\EnvironmentWriterTrait;
 use Filament\Contracts\Plugin;
 use Filament\Forms\Components\Select;
@@ -23,13 +25,22 @@ class BillingPlugin implements HasPluginSettings, Plugin
     {
         $id = str($panel->getId())->title();
 
+        if ($panel->getId() === 'app') {
+            ServerResource::embedServerList();
+
+            $panel->navigation(true);
+            $panel->topbar(function () {
+                $navigationType = user()?->getCustomization(CustomizationKey::TopNavigation);
+
+                return $navigationType === 'topbar' || $navigationType === 'mixed' || $navigationType === true;
+            });
+
+            $panel->clearCachedComponents();
+        }
+
         $panel->discoverResources(plugin_path($this->getId(), "src/Filament/$id/Resources"), "Boy132\\Billing\\Filament\\$id\\Resources");
         $panel->discoverPages(plugin_path($this->getId(), "src/Filament/$id/Pages"), "Boy132\\Billing\\Filament\\$id\\Pages");
         $panel->discoverWidgets(plugin_path($this->getId(), "src/Filament/$id/Widgets"), "Boy132\\Billing\\Filament\\$id\\Widgets");
-
-        if ($panel->getId() === 'app') {
-            $panel->path('servers');
-        }
     }
 
     public function boot(Panel $panel): void {}

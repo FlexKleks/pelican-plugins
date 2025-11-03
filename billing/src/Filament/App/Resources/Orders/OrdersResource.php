@@ -1,11 +1,11 @@
 <?php
 
-namespace Boy132\Billing\Filament\Shop\Resources\Orders;
+namespace Boy132\Billing\Filament\App\Resources\Orders;
 
 use App\Filament\Components\Tables\Columns\DateTimeColumn;
 use App\Filament\Server\Pages\Console;
 use Boy132\Billing\Enums\OrderStatus;
-use Boy132\Billing\Filament\Shop\Resources\Orders\Pages\ListOrders;
+use Boy132\Billing\Filament\App\Resources\Orders\Pages\ListOrders;
 use Boy132\Billing\Models\Customer;
 use Boy132\Billing\Models\Order;
 use Filament\Actions\Action;

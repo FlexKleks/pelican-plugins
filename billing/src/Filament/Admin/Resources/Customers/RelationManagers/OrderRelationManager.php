@@ -3,6 +3,7 @@
 namespace Boy132\Billing\Filament\Admin\Resources\Customers\RelationManagers;
 
 use App\Filament\Admin\Resources\Servers\Pages\EditServer;
+use App\Filament\Components\Tables\Columns\DateTimeColumn;
 use Boy132\Billing\Enums\OrderStatus;
 use Boy132\Billing\Filament\Admin\Resources\Products\Pages\EditProduct;
 use Boy132\Billing\Models\Customer;
@@ -29,6 +30,7 @@ class OrderRelationManager extends RelationManager
                     ->badge(),
                 TextColumn::make('server.name')
                     ->label('Server')
+                    ->placeholder('No server')
                     ->icon('tabler-brand-docker')
                     ->sortable()
                     ->url(fn (Order $order): ?string => $order->server ? EditServer::getUrl(['record' => $order->server]) : null),
@@ -48,6 +50,11 @@ class OrderRelationManager extends RelationManager
 
                         return $formatter->formatCurrency($state, config('billing.currency'));
                     }),
+                DateTimeColumn::make('expires_at')
+                    ->label('Expires')
+                    ->placeholder('No expire')
+                    ->color(fn ($state) => $state <= now('UTC') ? 'danger' : null)
+                    ->since(),
             ])
             ->recordActions([
                 Action::make('activate')

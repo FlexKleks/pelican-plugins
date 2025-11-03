@@ -4,7 +4,7 @@ namespace Boy132\Billing\Http\Controllers\Api;
 
 use App\Filament\Server\Pages\Console;
 use App\Http\Controllers\Controller;
-use Boy132\Billing\Filament\Shop\Resources\Orders\Pages\ListOrders;
+use Boy132\Billing\Filament\App\Resources\Orders\Pages\ListOrders;
 use Boy132\Billing\Models\Order;
 use Filament\Facades\Filament;
 use Illuminate\Http\RedirectResponse;
@@ -24,13 +24,13 @@ class CheckoutController extends Controller
         $sessionId = $request->get('session_id');
 
         if ($sessionId === null) {
-            return redirect(Filament::getPanel('shop')->getUrl());
+            return redirect(Filament::getPanel('app')->getUrl());
         }
 
         $session = $this->stripeClient->checkout->sessions->retrieve($sessionId);
 
         if ($session->payment_status !== 'paid') {
-            return redirect(ListOrders::getUrl(panel: 'shop'));
+            return redirect(ListOrders::getUrl(panel: 'app'));
         }
 
         /** @var Order $order */
@@ -50,6 +50,6 @@ class CheckoutController extends Controller
             $order?->close();
         }
 
-        return redirect(ListOrders::getUrl(panel: 'shop'));
+        return redirect(ListOrders::getUrl(panel: 'app'));
     }
 }

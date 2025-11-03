@@ -1,9 +1,9 @@
 <?php
 
-namespace Boy132\Billing\Filament\Shop\Pages;
+namespace Boy132\Billing\Filament\App\Pages;
 
-use Boy132\Billing\Filament\Shop\Widgets\ProductWidget;
-use Boy132\Billing\Filament\Shop\Widgets\WelcomeWidget;
+use Boy132\Billing\Filament\App\Widgets\ProductWidget;
+use Boy132\Billing\Filament\App\Widgets\WelcomeWidget;
 use Boy132\Billing\Models\Product;
 use Filament\Pages\Dashboard as BaseDashboard;
 use Filament\Widgets\WidgetConfiguration;
