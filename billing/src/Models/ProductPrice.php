@@ -3,6 +3,7 @@
 namespace Boy132\Billing\Models;
 
 use Boy132\Billing\Enums\PriceInterval;
+use Filament\Support\Contracts\HasLabel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use NumberFormatter;
@@ -18,7 +19,7 @@ use Stripe\StripeClient;
  * @property int $product_id
  * @property Product $product
  */
-class ProductPrice extends Model
+class ProductPrice extends Model implements HasLabel
 {
     protected $fillable = [
         'stripe_id',
@@ -52,6 +53,11 @@ class ProductPrice extends Model
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class, 'product_id');
+    }
+
+    public function getLabel(): string
+    {
+        return $this->interval_value . ' ' . str_plural($this->interval_type->getLabel(), $this->interval_value) . ' - ' . $this->formatCost();
     }
 
     public function sync(): void

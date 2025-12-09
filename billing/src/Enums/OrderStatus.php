@@ -28,7 +28,7 @@ enum OrderStatus: string implements HasColor, HasIcon, HasLabel
         return match ($this) {
             self::Pending => 'tabler-circle-dotted',
             self::Active => 'tabler-circle-check',
-            self::Expired => 'tabler-exclamation-circle',
+            self::Expired => 'tabler-clock-hour-4',
             self::Closed => 'tabler-circle-x',
         };
     }

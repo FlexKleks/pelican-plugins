@@ -8,11 +8,15 @@ use Boy132\Billing\Enums\OrderStatus;
 use Boy132\Billing\Filament\Admin\Resources\Customers\Pages\EditCustomer;
 use Boy132\Billing\Filament\Admin\Resources\Orders\Pages\ListOrders;
 use Boy132\Billing\Filament\Admin\Resources\Products\Pages\EditProduct;
+use Boy132\Billing\Models\Customer;
 use Boy132\Billing\Models\Order;
+use Boy132\Billing\Models\ProductPrice;
 use Exception;
 use Filament\Actions\Action;
+use Filament\Forms\Components\Select;
 use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use NumberFormatter;
@@ -30,13 +34,35 @@ class OrderResource extends Resource
         return (string) static::getEloquentQuery()->count() ?: null;
     }
 
+    public static function form(Schema $schema): Schema
+    {
+        return $schema
+            ->components([
+                Select::make('customer_id')
+                    ->label('Customer')
+                    ->required()
+                    ->selectablePlaceholder(false)
+                    ->relationship('customer')
+                    ->getOptionLabelFromRecordUsing(fn (Customer $customer) => $customer->getLabel())
+                    ->preload(),
+                Select::make('product_price_id')
+                    ->label('Product')
+                    ->required()
+                    ->selectablePlaceholder(false)
+                    ->relationship('productPrice')
+                    ->getOptionLabelFromRecordUsing(fn (ProductPrice $productPrice) => $productPrice->product->name . ' (' . $productPrice->getLabel() . ')')
+                    ->preload(),
+            ]);
+    }
+
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
                 TextColumn::make('status')
                     ->sortable()
-                    ->badge(),
+                    ->badge()
+                    ->visible(fn ($livewire) => $livewire->activeTab === 'all'),
                 TextColumn::make('customer')
                     ->label('Customer')
                     ->icon('tabler-user-dollar')
@@ -115,7 +141,8 @@ class OrderResource extends Resource
                     }),
             ])
             ->emptyStateHeading('No Orders')
-            ->emptyStateDescription('');
+            ->emptyStateDescription('')
+            ->emptyStateIcon('tabler-truck-delivery');
     }
 
     public static function getPages(): array

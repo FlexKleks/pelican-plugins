@@ -108,7 +108,8 @@ class CouponResource extends Resource
                 DeleteBulkAction::make(),
             ])
             ->emptyStateHeading('No Coupons')
-            ->emptyStateDescription('');
+            ->emptyStateDescription('')
+            ->emptyStateIcon('tabler-receipt-tax');
     }
 
     public static function getPages(): array

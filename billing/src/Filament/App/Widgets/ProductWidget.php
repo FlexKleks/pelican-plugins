@@ -32,7 +32,7 @@ class ProductWidget extends Widget implements HasActions, HasSchemas
 
         foreach ($this->product->prices as $price) {
             $actions[] = Action::make($price->name)
-                ->label($price->interval_value . ' ' . str_plural($price->interval_type->getLabel(), $price->interval_value) . ' - ' . $price->formatCost())
+                ->label($price->getLabel())
                 ->action(function () use ($price) {
                     $price->sync();
 

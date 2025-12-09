@@ -75,9 +75,15 @@ class OrdersResource extends Resource
             ])
             ->recordActions([
                 ViewAction::make()
-                    ->url(fn (Order $order) => $order->server ? Console::getUrl(panel: 'server', tenant: $order->server) : null),
+                    ->hidden(fn (Order $order) => !$order->server)
+                    ->url(fn (Order $order) => Console::getUrl(panel: 'server', tenant: $order->server)),
+                Action::make('activate')
+                    ->visible(fn (Order $order) => $order->status === OrderStatus::Pending)
+                    ->color('success')
+                    ->requiresConfirmation()
+                    ->action(fn (Order $order) => redirect($order->getCheckoutSession()->url)),
                 Action::make('cancel')
-                    ->visible(fn (Order $order) => $order->status === OrderStatus::Active)
+                    ->visible(fn (Order $order) => $order->status === OrderStatus::Pending || $order->status === OrderStatus::Active)
                     ->color('danger')
                     ->requiresConfirmation()
                     ->action(fn (Order $order) => $order->close()),
@@ -88,7 +94,8 @@ class OrdersResource extends Resource
                     ->action(fn (Order $order) => redirect($order->getCheckoutSession()->url)),
             ])
             ->emptyStateHeading('No Orders')
-            ->emptyStateDescription('');
+            ->emptyStateDescription('')
+            ->emptyStateIcon('tabler-truck-delivery');
     }
 
     public static function getPages(): array

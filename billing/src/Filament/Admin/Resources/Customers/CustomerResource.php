@@ -84,7 +84,8 @@ class CustomerResource extends Resource
                 DeleteAction::make(),
             ])
             ->emptyStateHeading('No Customers')
-            ->emptyStateDescription('');
+            ->emptyStateDescription('')
+            ->emptyStateIcon('tabler-user-dollar');
     }
 
     public static function getPages(): array

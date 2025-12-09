@@ -145,7 +145,8 @@ class ProductResource extends Resource
                 DeleteAction::make(),
             ])
             ->emptyStateHeading('No Products')
-            ->emptyStateDescription('');
+            ->emptyStateDescription('')
+            ->emptyStateIcon('tabler-package');
     }
 
     public static function getPages(): array

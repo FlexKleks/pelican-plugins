@@ -117,7 +117,7 @@ class Order extends Model
                     ],
                 ],
                 'mode' => 'payment',
-                'ui_mode' => 'hosted',
+                'allow_promotion_codes' => true,
             ]);
 
             $this->update([
