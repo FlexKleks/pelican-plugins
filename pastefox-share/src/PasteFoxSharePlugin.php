@@ -101,6 +101,9 @@ class PasteFoxSharePlugin implements HasPluginSettings, Plugin
         ];
     }
 
+    /**
+     * @return array<string, string>
+     */
     protected function getCustomDomainOptions(): array
     {
         $options = ['' => trans('pastefox-share::messages.custom_domain_none')];
